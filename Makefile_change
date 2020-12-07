@@ -1,0 +1,41 @@
+
+S=src
+T=target
+TEST=testcases
+
+TOOLPREFIX      := riscv64-unknown-linux-gnu-
+CC = $(TOOLPREFIX)gcc
+LD = $(TOOLPREFIX)ld
+OBJCOPY = $(TOOLPREFIX)objcopy
+OBJDUMP = $(TOOLPREFIX)objdump
+
+CFLAGS=-I/src/include
+
+modules = \
+	lib \
+	$(TEST)/test_fork \
+	$(TEST)/test_stdout
+
+OBJS = \
+	$S/main.o \
+  	$S/syscall.o \
+  	$S/test.o \
+	$S/lib.o
+
+TARGET = \
+	$T/stdtest
+
+.PHONY: all $(modules) clean build
+
+all: $(modules) k210
+
+$(modules): 
+	$(MAKE) --directory=$@
+
+build: $(OBJS)
+	@$(LD) -Tlinker.ld -emain -o $(TARGET) $(OBJS)
+.PHONY: build
+
+clean: 
+	rm -f $S/*.o $T/stdtest
+.PHONY: clean

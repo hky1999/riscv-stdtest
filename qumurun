@@ -1,0 +1,2 @@
+make clean
+make && /home/hky/qemu-5.1.0/riscv64-linux-user/qemu-riscv64 target/stdtest

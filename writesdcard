@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# riscv64-unknown-linux-gnu-gcc -c main.c -o main.o
+# riscv64-unknown-linux-gnu-gcc -c syscall.S -o syscall.o
+# riscv64-unknown-linux-gnu-ld -Tlinker.ld -emain -o stdtest main.o syscall.o
+
+make clean && make
+cd ../rCore-Tutorial/user && make sdcard
